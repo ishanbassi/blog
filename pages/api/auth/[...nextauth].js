@@ -35,6 +35,7 @@ const callbacks = {}
 
 callbacks.signIn = async function signIn(user, account, metadata) {
     if (account.provider === 'github') {
+        console.log(account)
         const emailRes = await fetch('https://api.github.com/user/emails', {
             headers: {
                 'Authorization': `token ${account.accessToken}`
@@ -65,6 +66,7 @@ callbacks.signIn = async function signIn(user, account, metadata) {
         user.id = await saveUser('local', localUser)
         return true
     }
+
 
     return false;
 }
@@ -102,4 +104,7 @@ const options = {
     callbacks
 }
 
-export default (req, res) => NextAuth(req, res, options)
+export default (req, res) => {
+    
+    return NextAuth(req, res, options)
+}
